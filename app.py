@@ -7,7 +7,7 @@ from PIL import Image
 loaded_model = load_model('model.h5')
 
 # Class labels
-class_labels = ['bike', 'car', 'truck', 'bicycle']
+class_labels = ['bike', 'car', 'truck', 'cart', 'bicycle']
 
 # Image dimensions used for preprocessing (should be consistent with the model's input size)
 image_width, image_height = 224, 224
@@ -49,7 +49,7 @@ def predict_image(image):
 
 def main():
     st.title('Image Classification App')
-    st.write('Upload an image to classify it into one of the following classes: bike, car, truck, bicycle')
+    st.write('Upload an image to classify it into one of the following classes: bike, car, truck, cart, bicycle')
 
     # Image upload widget
     uploaded_file = st.file_uploader('Choose an image...', type=['jpg', 'jpeg', 'png'])
@@ -80,3 +80,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
