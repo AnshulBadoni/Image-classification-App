@@ -4,7 +4,7 @@ from tensorflow.keras.models import load_model
 from PIL import Image
 
 # Load the trained model
-loaded_model = load_model('model.h5')
+loaded_model = load_model('./model.h5')
 
 # Class labels
 class_labels = ['bike', 'car', 'truck', 'cart', 'bicycle']
