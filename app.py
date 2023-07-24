@@ -42,9 +42,13 @@ def predict_image(image):
         image = np.expand_dims(image, axis=0)
         prediction = loaded_model.predict(image)
         predicted_class = np.argmax(prediction)
-        return class_labels[predicted_class]
+        if predicted_class < len(class_labels):
+            return class_labels[predicted_class]
+        else:
+            return "none"
     else:
         return None
+
 
 
 def main():
@@ -59,20 +63,18 @@ def main():
             # Read the uploaded image
             image = Image.open(uploaded_file)
 
-            # Check if the image is read successfully
-            if image is not None:
+            # Preprocess the image and predict the class
+            prediction = predict_image(image)
+
+            if prediction is not None:
+                # Display the uploaded image
                 st.image(image, caption='Uploaded Image', use_column_width=True)
 
-                # Predict the class of the uploaded image
-                prediction = predict_image(image)
-                if prediction is not None:
-                    # Display the predicted class with a bigger font
-                    st.write(f'Predicted Class: <span style="font-size:30px">{prediction}</span>',
-                             unsafe_allow_html=True)
-                else:
-                    st.error("Error: Unable to predict the class.")
+                # Display the predicted class with a bigger font
+                st.write(f'Predicted Class: <span style="font-size:30px">{prediction}</span>',
+                         unsafe_allow_html=True)
             else:
-                st.error("Error: Unable to read the uploaded image.")
+                st.error("Error: Unable to predict the class.")
         except Exception as e:
             st.error("Error occurred while processing the image.")
             st.error(str(e))
